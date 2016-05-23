@@ -1,0 +1,23 @@
+var people = [
+    {
+        "name": "Nathan",
+        "initialScore": 296,
+        "lastWeekScore": 297,
+        "thisWeekScore": 300,
+        "fcc-link": "https://www.freecodecamp.com/njgell"
+    },
+    {
+        "name": "Josh",
+        "initialScore": 136,
+        "lastWeekScore": 138,
+        "thisWeekScore": 150,
+        "fcc-link": "https://www.freecodecamp.com/omnisci3nce"
+    },
+    {
+        "name": "Quincy Larson",
+        "initialScore": 1135,
+        "lastWeekScore": 1135,
+        "thisWeekScore": 1135,
+        "fcc-link": "https://www.freecodecamp.com/QuincyLarson"
+    }
+];
