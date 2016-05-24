@@ -1,3 +1,12 @@
+//create array of submitted form data
+$( "form" ).on( "submit", function( event ) {
+	event.preventDefault();
+	
+	var data;
+  data = $( this ).serializeArray();
+	console.log(data);
+});
+
 // reference to HTML div elements
 unsortedListRef = document.getElementById('unsortedlist');
 sortedListRef = document.getElementById('sortedlist');
