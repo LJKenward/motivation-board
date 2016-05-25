@@ -1,8 +1,12 @@
-var userScores = [];
+var userScores = [], timeClicked;
 
 //create array of submitted form data
 $( "form" ).on( "submit", function( event ) {
 	event.preventDefault();
+	timeClicked = Date();
+	console.log(timeClicked);
+	
+	if (timeClicked.substr(0,3) === 'Tue') {
 	
 	var userInput, userFormatted;
   userInput = $( this ).serializeArray();
@@ -16,6 +20,7 @@ $( "form" ).on( "submit", function( event ) {
 	
 	userScores.push(userFormatted);
 	console.log(userScores);
+	}
 });
 
 
@@ -55,3 +60,12 @@ sortByScoreProgress(scores);
 
 // output our sorted list
 sortedListRef.innerHTML = JSON.stringify(scores);
+
+
+//Jeff
+
+//Display data
+
+for (var i=0; i < scores.length; i++){
+	$("#leaderboard").append("<li>" + scores[i]["name"] + " " + scores[i]["previousWeekScore"] + " " + scores[i]["currentScore"] + "</li>");
+}
