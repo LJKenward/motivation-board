@@ -1,11 +1,27 @@
+var userScores = [];
+
 //create array of submitted form data
 $( "form" ).on( "submit", function( event ) {
 	event.preventDefault();
 	
-	var data;
-  data = $( this ).serializeArray();
-	console.log(data);
+	var userInput, userFormatted;
+  userInput = $( this ).serializeArray();
+	console.log(userInput);
+	
+	userFormatted = {
+		name: userInput[0]["value"],
+		previousScore: Number(userInput[1]["value"]),
+		currentScore: Number(userInput[2]["value"])
+	}
+	
+	userScores.push(userFormatted);
+	console.log(userScores);
 });
+
+
+
+//JOSH
+
 
 // reference to HTML div elements
 unsortedListRef = document.getElementById('unsortedlist');
