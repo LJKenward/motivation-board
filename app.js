@@ -1,4 +1,4 @@
-var userScores = [], timeClicked;
+var userScores = [], timeClicked, gotJson;
 
 //create array of submitted form data
 $( "form" ).on( "submit", function( event ) {
@@ -20,52 +20,67 @@ $( "form" ).on( "submit", function( event ) {
 	
 	userScores.push(userFormatted);
 	console.log(userScores);
-	}
-});
+	
+	var dataToStore = JSON.stringify(userScores);
+	console.log(dataToStore);
+	
+	//code to create json on myjson.com
+	//only needs done once so now commented out
+	
+	/*
+		$.ajax({
+    url:"https://api.myjson.com/bins/",
+    type:"POST",
+    data: dataToStore,
+    contentType:"application/json; charset=utf-8",
+    dataType:"json",
+    success: function(data, textStatus, jqXHR){
+			var jsonid = console.log(data);
+		}
+		}); */
+		
+		$.ajax({
+    url:"https://api.myjson.com/bins//1clam",
+    type:"PUT",
+    data: dataToStore,
+    contentType:"application/json; charset=utf-8",
+    dataType:"json",
+    success: function(data, textStatus, jqXHR){
 
-
-
-//JOSH
-
-
-// reference to HTML div elements
-unsortedListRef = document.getElementById('unsortedlist');
-sortedListRef = document.getElementById('sortedlist');
-
-// a list of objects that each represent a user
-// because of the difference in weekly progress,
-// once sorted, Spooky Ghost should be element one of the list, and Josh should be element 2
-scores = [{
-			name:"Josh",
-            previousWeekScore:136,
-            currentScore: 138   // weekly progress of 2 points
-          },
-          {
-          	name:"Spooky Ghost",
-            previousWeekScore:3333,
-            currentScore: 3334  // weekly progress of 1 point
-          }];
-
-// output our unsorted list of objects
-unsortedListRef.innerHTML = JSON.stringify(scores); // if you use 'scores' you get '[Object, Object]'
+    }
+		});
+		
+		$.get("https://api.myjson.com/bins//1clam", function(data, textStatus, jqXHR) {
+			console.log(data);
+			gotJson = data;
+		});
+		
+		/*
+		unsortedListRef = document.getElementById('unsortedlist');
+		sortedListRef = document.getElementById('sortedlist');
+		
+		unsortedListRef.innerHTML = JSON.stringify(gotJson); // if you use 'scores' you get '[Object, Object]'
                                                     // thus we use JSON to display it
 
 // sort weekly progress from minimum -> maximum
-var sortByScoreProgress = function(scoresList){
-  scoresList.sort(function(a, b){return (a.currentScore - a.previousWeekScore) - (b.currentScore - b.previousWeekScore)});
-}
-
-// sort our scores list
-sortByScoreProgress(scores);
+		var sortByScoreProgress = function(scoresList){
+			scoresList.sort(function(a, b){return (a.currentScore - a.previousWeekScore) - (b.currentScore - b.previousWeekScore)});
+		}
+		
+		sortByScoreProgress(gotJson);
 
 // output our sorted list
-sortedListRef.innerHTML = JSON.stringify(scores);
+		sortedListRef.innerHTML = JSON.stringify(gotJson);
+
+		*/
+	}
+});
 
 
 //Jeff
 
 //Display data
 
-for (var i=0; i < scores.length; i++){
-	$("#leaderboard").append("<li>" + scores[i]["name"] + " " + scores[i]["previousWeekScore"] + " " + scores[i]["currentScore"] + "</li>");
-}
+/*for (var i=0; i < gotJson.length; i++){
+	$("#leaderboard").append("<li>" + gotJson[i]["name"] + " " + scores[i]["previousWeekScore"] + " " + gotJson[i]["currentScore"] + "</li>");
+}*/
