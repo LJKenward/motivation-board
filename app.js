@@ -1,87 +1,78 @@
-var userScores = [], timeClicked, gotJson, unsortedListRef, sortedListRef;
+// global variables
+var userScores;
 
-//create array of submitted form data
-$( "form" ).on( "submit", function( event ) {
-	event.preventDefault();
-	timeClicked = Date();
-	console.log(timeClicked);
-	
-	if (timeClicked.substr(0,3) === 'Tue') {
-	
-	var userInput, userFormatted;
-  userInput = $( this ).serializeArray();
-	console.log(userInput);
-	
-	userFormatted = {
-		name: userInput[0]["value"],
-		previousScore: Number(userInput[1]["value"]),
-		currentScore: Number(userInput[2]["value"])
+// utility functions
+var sortByScoreProgress = function(scoresList){
+	scoresList.sort(function(a, b){return (b.currentScore - b.previousWeekScore) - (a.currentScore - a.previousWeekScore)});
+}
+var getScoreProgress = function(sortedList){
+	var list = [];
+	for (var i=0; i < sortedList.length; i++){
+		list.push(sortedList[i].currentScore - sortedList[i].previousWeekScore);
 	}
-	
-	userScores.push(userFormatted);
-	console.log(userScores);
-	
-	var dataToStore = JSON.stringify(userScores);
-	console.log(dataToStore);
-	
-	//code to create json on myjson.com
-	//only needs done once so now commented out
-	
-	/*
-		$.ajax({
-    url:"https://api.myjson.com/bins/",
-    type:"POST",
-    data: dataToStore,
-    contentType:"application/json; charset=utf-8",
-    dataType:"json",
-    success: function(data, textStatus, jqXHR){
-			var jsonid = console.log(data);
+	return list;
+}
+var getUserIndex = function(scoresList, name){
+	for (var i=0; i < scoresList.length; i++){
+		if (scoresList[i].name == name){
+			return i;
 		}
-		}); */
-	
-		$.ajax({
-    url:"https://api.myjson.com/bins//45r9q",
-    type:"PUT",
-    data: dataToStore,
-    contentType:"application/json; charset=utf-8",
-    dataType:"json",
-    success: function(data, textStatus, jqXHR){
-
-    }
-		});
-		
-		
-		$.get("https://api.myjson.com/bins//45r9q", function(data, textStatus, jqXHR) {
-			console.log(data);
-			gotJson = data;
-			
-			unsortedListRef = document.getElementById('unsortedlist');
-			sortedListRef = document.getElementById('sortedlist');
-		
-			unsortedListRef.innerHTML = JSON.stringify(gotJson); 
-			console.log(gotJson);
-			
-			// sort weekly progress from minimum -> maximum
-			var sortByScoreProgress = function(scoresList){
-				scoresList.sort(function(a, b){return (a.currentScore - a.previousScore) - (b.currentScore - b.previousScore)});
-			}
-		
-			sortByScoreProgress(gotJson);
-
-			// output our sorted list
-			sortedListRef.innerHTML = JSON.stringify(gotJson);
-			
-			//Display data
-
-			for (var i=0; i < gotJson.length; i++){
-				$("#leaderboard").append("<li>" + gotJson[i]["name"] + " " + gotJson[i]["previousWeekScore"] + " " + gotJson[i]["currentScore"] + "</li>");
-			}
-
-		});
 	}
+	return null;
+}
+var updateLeaderboard = function(data){
+	$("#leaderboard").empty();
+
+	sortByScoreProgress(data);
+	var weeklyProgressScores = getScoreProgress(data);
+	for (var i=0; i < data.length; i++){
+		$("#leaderboard").append("<li>" + data[i]["name"] + " " + weeklyProgressScores[i] + "</li>");
+	}
+}
+
+// Get current scores data from myjson.com API -- occurs on page load
+$.get("https://api.myjson.com/bins/49dtq", function(data, textStatus, jqXHR){
+	userScores = data;
+	updateLeaderboard(data);
+
 });
 
+// update a user's score -- occurs on form submission
+$( "form" ).on( "submit", function( event ) {
+	event.preventDefault();
+	timeClicked = new Date();
 
-//Jeff
+	var userInput, userFormatted;
+  	userInput = $( this ).serializeArray();
+
+	userFormatted = {
+		name: userInput[0]["value"],
+		currentScore: Number(userInput[1]["value"]),
+		previousWeekScore: 0
+	}
 
 
+	var userIndex = getUserIndex(userScores, userFormatted.name);
+
+	// check if user already exists
+	if (userIndex != null){
+		userScores[userIndex].previousWeekScore = userScores[userIndex].currentScore;
+		userScores[userIndex].currentScore = userFormatted.currentScore;
+	} else {
+		// create new user
+		userScores.push(userFormatted);
+	}
+
+	updateLeaderboard(userScores);
+
+	// upload new scores to myjson API
+	$.ajax({
+	    url:"https://api.myjson.com/bins/49dtq",
+	    type:"PUT",
+	    data: JSON.stringify(userScores),
+	    contentType:"application/json; charset=utf-8",
+	    dataType:"json",
+	    success: function(data, textStatus, jqXHR){
+	    }
+	});
+});
