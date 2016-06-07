@@ -40,9 +40,16 @@ $.get("https://api.myjson.com/bins/49dtq", function(data, textStatus, jqXHR){
 // update a user's score -- occurs on form submission
 $( "form" ).on( "submit", function( event ) {
 	event.preventDefault();
-
+<<<<<<< HEAD
+	timeClicked = Date();
+	console.log(timeClicked);
+	
+	if (timeClicked.substr(0,3) === 'Wed') {
+	
+=======
 	timeClicked = new Date();
 
+>>>>>>> 4ce2309265d73ba77eb8f3d63d074fe4ddcaa561
 	var userInput, userFormatted;
   	userInput = $( this ).serializeArray();
 
