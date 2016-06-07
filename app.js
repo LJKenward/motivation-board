@@ -6,7 +6,7 @@ $( "form" ).on( "submit", function( event ) {
 	timeClicked = Date();
 	console.log(timeClicked);
 	
-	if (timeClicked.substr(0,3) === 'Tue') {
+	if (timeClicked.substr(0,3) === 'Wed') {
 	
 	var userInput, userFormatted;
   userInput = $( this ).serializeArray();
