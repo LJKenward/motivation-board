@@ -1,25 +1,108 @@
-<h1>Progress Board</h1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-<form>
-  Name:<br>
-  <input type="text" name="name"><br>
+    <title>Leaderboard - FreeCodeCamp - Melbourne</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet">
 
-	New Score:<br>
-	<input type="text" name="newscore"><br>
-	<input type="submit" value="Submit">
-</form>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+  </head>
 
-<h3>Unsorted List</h3><div id='unsortedlist'></div>
-<br><br>
-<h3>Sorted List</h3>
-<div id='sortedlist'></div>
-<br><br>
+  <body>
 
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">LeaderBoard - FreeCodeCamp - Melbourne</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse navbar-right">
+          <ul class="nav navbar-nav">
+            <li><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
 
-<h3>Weekly Progress</h3>
-<ul id="leaderboard"></ul>
+    <section>
+      <div class="container">
+      <div class="jumbotron">
+          <h1><i class="fa fa-graduation-cap" aria-hidden="true"></i> LeaderBoard</h1>
+      </div>
+            
+      <div class="row">
+      <div class="col-md-6">
+        
+        <h1>Progress Board</h1>
 
+        <form>
+          <div class="form-group">
+            <label for="exampleInputName">Name</label>
+            <input type="text" class="form-control" id="exampleInputName" placeholder="Name">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputNewScore">New Score</label>
+            <input type="text" class="form-control" id="exampleInputNewScore" placeholder="New Score" name="newscore">
+          </div>
+          <button type="submit" class="btn btn-info">Submit</button>
+        </form>
 
+        
 
-<script src="scripts/jquery-1.12.0.min.js"></script>
-<script src="app2.js"></script>
+      </div>
+      <div class="col-md-6">
+        <div class="right-section">
+
+          <h3><span class="label label-primary">Unsorted List</span></h3>
+          <div id='unsortedlist'>
+            
+          </div>
+          <br><br>
+
+          <h3><span class="label label-primary">Sorted List</span></h3>
+          <div id='sortedlist'>
+            
+          </div>
+          <br><br>
+
+          <h3><span class="label label-success">Weekly Progress</span></h3>
+          <ul id="leaderboard">
+            
+          </ul>
+        </div>  
+        
+
+      </div>
+      </div>
+  
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <p class="text-center">FreeCodeCamp Melbourne&copy;CopyRight 2016 - All Rights Reserved</p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
